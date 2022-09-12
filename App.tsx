@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Image, View } from 'react-native';
+
+import { AppStackParamList } from './src/navigations/AppStackParamList';
+import HomeView from './src/views/HomeView';
+import RegisterView from './src/views/RegisterView';
+import VerificationView from './src/views/VerificationView';
+
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeView}
+          options={{
+            header: () => (
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  height: 150,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderBottomLeftRadius: 30,
+                  borderBottomRightRadius: 30
+                }}>
+                <Image source={require('./assets/logo1.webp')} style={{ marginTop: 30 }} />
+              </View>
+            )
+          }}
+        />
+        <Stack.Screen name="Register" component={RegisterView} />
+        <Stack.Screen name="Verification" component={VerificationView} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
